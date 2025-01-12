@@ -36,10 +36,28 @@ $(window).on('load', function () {
   var set3DLinks = function () {
     $("#data a").removeClass("inactive").off("click").on("click", function (e) {
       var planetClass = $(this).attr("class").split(' ')[0];
-      var planetUrl = "3d/" + planetClass + ".html";
-      window.open(planetUrl, "_blank"); // Abre o link do planeta em uma nova aba
+      var planetUrl = getPlanetUrl(planetClass); // Obtém a URL do planeta
+      if (planetUrl) {
+        window.open(planetUrl, "_blank"); // Abre o link do planeta em uma nova aba
+      }
       e.preventDefault(); // Evita o comportamento padrão de navegação
     });
+  };
+
+  // Função para mapear as classes dos planetas para os links
+  var getPlanetUrl = function (planetClass) {
+    var planetUrls = {
+      sun: "https://solarsystem.nasa.gov/gltf_embed/2352/?fs=true",
+      mercury: "https://solarsystem.nasa.gov/gltf_embed/2369/",
+      venus: "https://solarsystem.nasa.gov/gltf_embed/2343/",
+      earth: "https://solarsystem.nasa.gov/gltf_embed/2393/",
+      mars: "https://solarsystem.nasa.gov/gltf_embed/2372/",
+      jupiter: "https://solarsystem.nasa.gov/gltf_embed/2375/",
+      saturn: "https://solarsystem.nasa.gov/gltf_embed/2355/",
+      uranus: "https://solarsystem.nasa.gov/gltf_embed/2344/",
+      neptune: "https://solarsystem.nasa.gov/gltf_embed/2364/"
+    };
+    return planetUrls[planetClass] || null; // Retorna o link ou null caso a classe não exista
   };
 
   // Função para ativar o modo 3D
